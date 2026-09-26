@@ -4,9 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FALLBACK_WORKOUTS, Workout } from "@/app/data/fallbackWorkouts";
+import { fetchWorkouts } from "@/app/lib/getWorkouts";
 import { showToast } from "@/app/components/Toast";
-
-const API_URL = "https://api.abcz.workers.dev/api/fitlog";
 
 const PLAN_KEY = "fitlog-plan";
 const SAVED_KEY = "fitlog-saved";
@@ -75,24 +74,8 @@ export default function MyPlanPage() {
       try {
         setLoading(true);
 
-        const response = await fetch(API_URL);
-
-        if (!response.ok) {
-          setWorkouts(FALLBACK_WORKOUTS);
-          return;
-        }
-
-        const text = await response.text();
-        try {
-          const data: Workout[] = JSON.parse(text);
-          if (Array.isArray(data) && data.length > 0) {
-            setWorkouts(data);
-          } else {
-            setWorkouts(FALLBACK_WORKOUTS);
-          }
-        } catch {
-          setWorkouts(FALLBACK_WORKOUTS);
-        }
+        const data = await fetchWorkouts();
+        setWorkouts(data);
       } catch (error) {
         console.error("FETCH ERROR:", error);
         setWorkouts(FALLBACK_WORKOUTS);
