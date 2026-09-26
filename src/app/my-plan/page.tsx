@@ -416,9 +416,9 @@ export default function MyPlanPage() {
 
         {/* STATS */}
 
-        <section className="mt-5.25 h-27.25 overflow-hidden rounded-[13px] border border-[#272c34] bg-[#15181e]">
+        <section className="mt-5 overflow-hidden rounded-[13px] border border-[#272c34] bg-[#15181e]">
 
-          <div className="grid h-full grid-cols-3">
+          <div className="grid grid-cols-3 divide-x divide-[#292e36]">
 
             <Stat
               label="Exercises"
@@ -449,7 +449,7 @@ export default function MyPlanPage() {
 
         {/* CONTROLS */}
 
-        <section className="mt-7.25 flex h-8.75 items-center justify-between">
+        <section className="mt-6 flex flex-wrap items-center justify-between gap-3">
 
           {/* TABS */}
 
@@ -623,17 +623,17 @@ function Stat({
 }) {
   return (
     <div
-      className={`flex flex-col justify-center ${bordered
-          ? "border-l border-[#292e36] px-7.25"
-          : "px-5.25"
+      className={`flex flex-col justify-center px-3 sm:px-6 py-3.5 sm:py-5 ${bordered
+          ? "border-l border-[#292e36]"
+          : ""
         }`}
     >
-      <p className="text-[10px] leading-none text-[#858b95]">
+      <p className="text-[10px] sm:text-xs font-semibold text-[#858b95]">
         {label}
       </p>
 
       <p
-        className={`mt-2.5 text-[34px] font-black leading-none tracking-[-1px] ${highlight
+        className={`mt-1 sm:mt-2 text-2xl sm:text-3xl lg:text-[34px] font-black leading-none tracking-tight ${highlight
             ? "text-[#c8ff00]"
             : "text-white"
           }`}
@@ -661,111 +661,78 @@ function WorkoutCard({
   onDone: (id: number, name?: string) => void;
 }) {
   return (
-    <article className="h-25.5 overflow-hidden rounded-[11px] border border-[#272c34] bg-[#15181e]">
+    <article className="overflow-hidden rounded-xl border border-[#272c34] bg-[#15181e] p-3 sm:p-4 transition hover:border-[#383f4b]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+        {/* IMAGE & DETAILS */}
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+          {/* IMAGE */}
+          <div className="relative h-16 w-24 sm:h-18 sm:w-32 shrink-0 overflow-hidden rounded-lg bg-[#20242b]">
+            <Image
+              src={workout.image}
+              alt={workout.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 96px, 128px"
+            />
+          </div>
 
-      <div className="flex h-full items-center px-3.5">
+          {/* CONTENT */}
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-xs sm:text-sm font-black uppercase leading-tight text-white">
+              {workout.name}
+            </h3>
 
-        {/* IMAGE */}
+            <p className="mt-1 text-[10px] sm:text-xs text-[#858b95]">
+              {workout.equipment}
+            </p>
 
-        <div className="relative h-18 w-32.5 shrink-0 overflow-hidden rounded-[7px] bg-[#20242b]">
+            <div className="mt-2 flex flex-wrap items-center gap-2.5 sm:gap-3.5 text-[9px] sm:text-[10px] leading-none text-[#92969e]">
+              <span className="flex items-center gap-1">
+                <ClockIcon />
+                {Number(workout.duration)} min
+              </span>
 
-          <Image
-            src={workout.image}
-            alt={workout.name}
-            fill
-            className="object-cover"
-            sizes="130px"
-          />
+              <span className="flex items-center gap-1">
+                <FlameIcon />
+                {Number(workout.caloriesBurned)} kcal
+              </span>
 
-        </div>
-
-        {/* CONTENT */}
-
-        <div className="ml-3.5 min-w-0 flex-1">
-
-          <h3 className="truncate text-[13px] font-black uppercase leading-3.75 text-white">
-            {workout.name}
-          </h3>
-
-          <p className="mt-1 text-[10px] leading-3.25 text-[#858b95]">
-            {workout.equipment}
-          </p>
-
-          <div className="mt-2.25 flex items-center gap-3.25 text-[9px] leading-none text-[#92969e]">
-
-            <span className="flex items-center gap-1">
-              <ClockIcon />
-              {Number(
-                workout.duration
-              )}
-              {" "}
-              min
-            </span>
-
-            <span className="flex items-center gap-1">
-              <FlameIcon />
-              {Number(
-                workout.caloriesBurned
-              )}
-              {" "}
-              kcal
-            </span>
-
-            <span className="flex items-center gap-1">
-              <StarIcon />
-              {Number(
-                workout.rating
-              ).toFixed(1)}
-            </span>
-
+              <span className="flex items-center gap-1">
+                <StarIcon />
+                {Number(workout.rating).toFixed(1)}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* ACTIONS */}
-
-        <div className="ml-5 flex shrink-0 items-center gap-2.5">
-
+        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 border-t border-[#232730] pt-2.5 sm:border-t-0 sm:pt-0">
           <Link
             href={`/workout/${workout.id}`}
-            className="flex h-8 items-center rounded-full border border-[#343942] px-4 text-[10px] font-medium text-[#c3c6cb] transition hover:border-[#59606b] hover:text-white"
+            className="flex h-8 items-center rounded-full border border-[#343942] px-3.5 text-[10px] sm:text-xs font-medium text-[#c3c6cb] transition hover:border-[#59606b] hover:text-white"
           >
             View Details
           </Link>
 
-          {activeTab ===
-            "plan" && (
-              <button
-                type="button"
-                onClick={() =>
-                  onDone(
-                    workout.id,
-                    workout.name
-                  )
-                }
-                className="flex h-8 items-center rounded-full bg-[#c8ff00] px-4 text-[10px] font-bold text-black transition hover:bg-[#d5ff3d]"
-              >
-                <span className="mr-1.25 text-[11px]">
-                  ✓
-                </span>
-
-                Mark as Done
-              </button>
-            )}
+          {activeTab === "plan" && (
+            <button
+              type="button"
+              onClick={() => onDone(workout.id, workout.name)}
+              className="flex h-8 items-center rounded-full bg-[#c8ff00] px-3.5 text-[10px] sm:text-xs font-bold text-black transition hover:bg-[#d5ff3d]"
+            >
+              <span className="mr-1 text-[11px]">✓</span>
+              Mark as Done
+            </button>
+          )}
 
           <button
             type="button"
             aria-label="Remove workout"
-            onClick={() =>
-              onRemove(
-                workout.id,
-                workout.name
-              )
-            }
-            className="flex h-7 w-7 items-center justify-center rounded-full text-[17px] leading-none text-[#737982] transition hover:text-white"
+            onClick={() => onRemove(workout.id, workout.name)}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-lg leading-none text-[#737982] transition hover:bg-[#20252d] hover:text-white"
           >
             ×
           </button>
-
         </div>
       </div>
     </article>

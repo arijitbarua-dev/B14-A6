@@ -20,14 +20,14 @@ const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     }
 
     return (
-        <main className="min-h-screen bg-[#0d0f12] px-5 py-8.5 text-white">
-            <div className="mx-auto max-w-300">
+        <main className="min-h-screen bg-[#0d0f12] px-3 sm:px-6 py-6 sm:py-9 text-white rounded-xl">
+            <div className="mx-auto max-w-6xl">
 
-                <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-10">
+                <div className="grid grid-cols-1 gap-6 sm:gap-10 lg:grid-cols-2">
 
                     {/* Workout Image */}
                     <div>
-                        <div className="relative aspect-[1.02/1] w-full overflow-hidden rounded-[10px] bg-[#171a20]">
+                        <div className="relative aspect-[4/3] sm:aspect-square lg:aspect-[1.02/1] w-full overflow-hidden rounded-xl border border-[#232730] bg-[#171a20]">
                             <Image
                                 src={workout.image}
                                 alt={workout.name}
@@ -41,11 +41,11 @@ const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                     {/* Workout Details */}
                     <div className="flex flex-col">
                         {/* Title */}
-                        <h1 className="text-[27px] font-black uppercase leading-[0.95] tracking-[-0.8px] sm:text-[29px]">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase leading-tight tracking-tight text-white">
                             {workout.name}
                         </h1>
                         {/* Description */}
-                        <p className="mt-3 max-w-130 text-[12px] leading-[1.65] text-[#92969e]">
+                        <p className="mt-3 max-w-xl text-xs sm:text-sm leading-relaxed text-[#92969e]">
                             {workout.description}
                         </p>
                         {/* Muscle Groups */}
@@ -53,7 +53,7 @@ const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             {workout.muscleGroups.map((muscle) => (
                                 <span
                                     key={muscle}
-                                    className="rounded-full bg-[#c8ff00] px-3.25 py-1 text-[10px] font-semibold text-black"
+                                    className="rounded-full bg-[#c8ff00] px-3 py-1 text-[10px] sm:text-xs font-bold text-black"
                                 >
                                     {muscle}
                                 </span>
@@ -73,12 +73,12 @@ const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
                             <StatRow label="CALORIES" value={`${workout.caloriesBurned} kcal`}/>
 
-                            <StatRow label="RATING" value={workout.rating.toFixed(1)}/>
+                            <StatRow label="RATING" value={workout.rating.toFixed(1)} last={true}/>
 
                         </div>
                         {/* Instructions */}
                         <section className="mt-6">
-                            <h2 className="text-[13px] font-bold uppercase tracking-[0.3px]">
+                            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#e2e4e9]">
                                 Instructions
                             </h2>
                             <ol className="mt-3 space-y-2.5">
@@ -86,8 +86,8 @@ const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                                     (instruction, index) => (
                                         <li
                                             key={index}
-                                            className="flex gap-3 text-[11px] leading-normal text-[#b0b4bb]">
-                                            <span className="min-w-2.5 text-[#92969e]">
+                                            className="flex gap-3 text-xs leading-normal text-[#b0b4bb]">
+                                            <span className="min-w-4 text-[#92969e] font-semibold">
                                                 {index + 1}.
                                             </span>
 

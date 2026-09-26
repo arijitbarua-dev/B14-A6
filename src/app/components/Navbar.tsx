@@ -78,6 +78,12 @@ const NavbarPage = () => {
         };
     }, []);
 
+    const closeMobileMenu = () => {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+    };
+
     /* =========================================================
        NAV LINKS
     ========================================================= */
@@ -87,7 +93,8 @@ const NavbarPage = () => {
             <li>
                 <Link
                     href="/"
-                    className={`rounded-full px-4 py-1.5 text-[11px] font-medium transition ${
+                    onClick={closeMobileMenu}
+                    className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                         pathname === "/" ||
                         pathname === "/workouts"
                             ? "bg-[#17240f] text-[#b6ff00]"
@@ -101,7 +108,8 @@ const NavbarPage = () => {
             <li>
                 <Link
                     href="/my-plan"
-                    className={`rounded-full px-4 py-1.5 text-[11px] font-medium transition ${
+                    onClick={closeMobileMenu}
+                    className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                         pathname === "/my-plan"
                             ? "bg-[#17240f] text-[#b6ff00]"
                             : "text-[#92959d] hover:text-white"
@@ -113,19 +121,19 @@ const NavbarPage = () => {
     );
 
     return (
-        <div className="navbar border-b border-[#1d1f22] bg-[#090a0c] shadow-sm">
+        <div className="navbar rounded-xl border border-[#1d1f22] bg-[#090a0c] px-3 sm:px-6 shadow-sm">
 
             {/* =================================================
                 LEFT
             ================================================= */}
 
-            <div className="navbar-start">
+            <div className="navbar-start gap-1">
                 {/* MOBILE MENU */}
                 <div className="dropdown">
                     <div
                         tabIndex={0}
                         role="button"
-                        className="btn btn-ghost lg:hidden">
+                        className="btn btn-ghost btn-sm px-2 text-white hover:bg-[#1a1d24] lg:hidden">
                         <svg
                             aria-label="Menu"
                             xmlns="http://www.w3.org/2000/svg"
@@ -142,21 +150,21 @@ const NavbarPage = () => {
                     </div>
 
                     <ul
-                        tabIndex={-1}
-                        className="menu menu-sm dropdown-content z-50 mt-3 w-52 rounded-box bg-[#090a0c] p-2 shadow-xl">
+                        tabIndex={0}
+                        className="menu menu-sm dropdown-content z-50 mt-3 w-48 rounded-xl border border-[#262930] bg-[#121418] p-2 shadow-2xl">
                         {links}
                     </ul>
                 </div>
                 {/* LOGO */}
                 <Link
                     href="/"
-                    className="flex items-center gap-3">
+                    className="flex items-center gap-2 sm:gap-3">
                     <Image
                         src={logo}
                         alt="fitlog logo"
-                        className="h-auto w-auto"/>
+                        className="h-6 w-auto sm:h-7"/>
 
-                    <span className="font-bold text-white">
+                    <span className="text-sm font-black tracking-wider text-white sm:text-base">
                         FITLOG
                     </span>
                 </Link>
@@ -167,7 +175,7 @@ const NavbarPage = () => {
             ================================================= */}
 
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal gap-1 px-1">
                     {links}
                 </ul>
             </div>
@@ -176,13 +184,13 @@ const NavbarPage = () => {
                 RIGHT
             ================================================= */}
 
-            <div className="navbar-end gap-5">
+            <div className="navbar-end gap-2.5 sm:gap-5">
                 {/* PLAN */}
                 <Link
                     href="/my-plan"
-                    className="flex items-center gap-2 text-xs text-[#92959d] transition hover:text-white">
-                    Plan
-                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#b6ff00] px-1 text-[10px] font-semibold text-black">
+                    className="flex items-center gap-1.5 text-xs text-[#92959d] transition hover:text-white sm:gap-2">
+                    <span className="font-medium">Plan</span>
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#b6ff00] px-1 text-[10px] font-extrabold text-black">
                         {planCount}
                     </span>
                 </Link>
@@ -190,9 +198,9 @@ const NavbarPage = () => {
                 {/* SAVED */}
                 <Link
                     href="/my-plan"
-                    className="flex items-center gap-2 text-xs text-[#92959d] transition hover:text-white">
-                    Saved
-                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#303238] px-1 text-[10px] text-[#92959d]">
+                    className="flex items-center gap-1.5 text-xs text-[#92959d] transition hover:text-white sm:gap-2">
+                    <span className="font-medium">Saved</span>
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#303238] bg-[#15181e] px-1 text-[10px] font-semibold text-[#92959d]">
                         {savedCount}
                     </span>
                 </Link>

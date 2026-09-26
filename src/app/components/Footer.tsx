@@ -6,20 +6,20 @@ import logo from "@/app/assets/logo.png";
 
 const FooterSection = () => {
     return (
-        <footer className="h-18 border-t border-[#1d1f22] bg-[#090a0c]">
-            <div className="mx-auto flex h-full w-full items-center justify-between px-5">
+        <footer className="mt-8 rounded-xl border-t border-[#1d1f22] bg-[#090a0c] py-5 px-4 sm:px-6">
+            <div className="mx-auto flex w-full flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
 
                 {/* LEFT - LOGO */}
-                <div className="flex items-center gap-1.75">
+                <div className="flex items-center gap-2">
                     <Image
                         src={logo}
                         alt="FitLog logo"
-                        width={18}
-                        height={18}
+                        width={20}
+                        height={20}
                         className="object-contain"
                     />
 
-                    <span className="text-[12px] font-bold tracking-[-0.2px] text-white">
+                    <span className="text-xs font-black tracking-wider text-white">
                         FITLOG
                     </span>
                 </div>

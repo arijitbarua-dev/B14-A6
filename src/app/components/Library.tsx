@@ -7,25 +7,20 @@ const LibrarySection = async () => {
     const library = await fetchWorkouts();
 
     return (
-        <section className="mt-10.5 pb-10">
+        <section id="library" className="mt-8 sm:mt-10 pb-10">
             {/* Section heading */}
             <div className="mb-5">
-                <h2 className="font-[var(--font-roboto-condensed)] text-[24px]
-                        font-black
-                        uppercase
-                        leading-none
-                        tracking-[-0.6px]
-                        text-[#f5f5f5]">
+                <h2 className="text-xl sm:text-2xl font-black uppercase leading-none tracking-[-0.6px] text-[#f5f5f5]">
                     THE LIBRARY
                 </h2>
 
-                <p className="mt-1.5 text-[10px] leading-none text-[#777d88]">
+                <p className="mt-1.5 text-xs text-[#777d88]">
                     Twelve lifts covering every major muscle group.
                 </p>
             </div>
 
             {/* Library grid */}
-            <div className="grid grid-cols-3 gap-x-4 gap-y-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
                 {library.map((workout) => (
                     <Link
                         key={workout.id}
