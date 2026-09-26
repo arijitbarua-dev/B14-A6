@@ -32,36 +32,3 @@ FitLog provides a sleek, distraction-free environment for organizing workout rou
 6. **🔀 Dynamic Sorting Options**: Sort planned and saved workouts on the fly by **Duration**, **Calories Burned**, or **Rating**.
 7. **⚡ Real-time Navigation & Multi-Tab Sync**: Dynamic navbar counters for plan and saved counts that auto-update across components and active browser tabs without page reloads.
 8. **✅ Mark as Done & Quick Management**: Mark exercises as completed with a single click, removing them from today's plan while updating session stats in real time.
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Ensure you have [Node.js](https://nodejs.org/) (v18 or higher) installed on your machine.
-
-### Installation
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
-
-3. **Open in Browser**:
-   Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
-
----
-
-## 📜 Available Scripts
-
-- `npm run dev` - Starts the development server.
-- `npm run build` - Builds the application for production.
-- `npm run start` - Starts the production server.
-- `npm run lint` - Runs ESLint code quality checks.
-
