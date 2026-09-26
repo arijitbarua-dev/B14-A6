@@ -1,2 +1,22 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #0b0c0e;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  padding: 5px 11px;
+}
