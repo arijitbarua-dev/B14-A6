@@ -1,53 +1,19 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import WorkoutActions from "@/app/components/WorkoutActions";
+import { fetchWorkouts, fetchWorkoutById } from "@/app/lib/getWorkouts";
 
-type Workout = {
-    id: number;
-    name: string;
-    image: string;
-    muscleGroups: string[];
-    equipment: string;
-    difficulty: string;
-    duration: number;
-    caloriesBurned: number;
-    sets: number;
-    reps: string;
-    rating: number;
-    description: string;
-    instructions: string[];
-};
+export async function generateStaticParams() {
+    const workouts = await fetchWorkouts();
+    return workouts.map((workout) => ({
+        id: String(workout.id),
+    }));
+}
 
-const getWorkout = async (id: string): Promise<Workout | null> => {
-    try {
-        const res = await fetch("https://api.abcz.workers.dev/api/fitlog",{
-                next: {
-                    revalidate: 10,
-                },
-            }
-        );
-
-        if (!res.ok) {
-            throw new Error(`Failed with status: ${res.status}`);
-        }
-
-        const workouts: Workout[] = await res.json();
-
-        return (
-            workouts.find(
-                (workout) => workout.id === Number(id)
-            ) ?? null
-        );
-    } catch (error) {
-        console.error("FETCH ERROR:", error);
-        throw new Error("Failed to fetch workout");
-    }
-};
-
-const WorkoutPage = async ({params,}: {params: Promise<{ id: string }>;}) => {
+const WorkoutPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
 
-    const workout = await getWorkout(id);
+    const workout = await fetchWorkoutById(id);
 
     if (!workout) {
         notFound();

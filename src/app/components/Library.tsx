@@ -1,47 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-type Workout = {
-    id: number;
-    name: string;
-    image: string;
-    muscleGroups: string[];
-    equipment: string;
-    difficulty: string;
-    duration: number;
-    caloriesBurned: number;
-    sets: number;
-    reps: string;
-    rating: number;
-    description: string;
-    instructions: string[];
-};
-
-const getLibraries = async (): Promise<Workout[]> => {
-    try {
-        const res = await fetch("https://api.abcz.workers.dev/api/fitlog", {
-            next: {
-                revalidate: 10,
-            }
-        });
-
-        if (!res.ok) {
-            throw new Error(`Failed with status: ${res.status}`);
-        }
-
-        const users = await res.json();
-
-        return users;
-    } catch (error) {
-        console.error("FETCH ERROR:", error);
-        throw new Error("Failed to fetch users");
-    }
-}
+import { fetchWorkouts } from '@/app/lib/getWorkouts';
 
 const LibrarySection = async () => {
-
-    const library = await getLibraries();
+    const library = await fetchWorkouts();
 
     return (
         <section className="mt-10.5 pb-10">

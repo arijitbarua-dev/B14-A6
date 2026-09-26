@@ -3,22 +3,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-type Workout = {
-  id: number;
-  name: string;
-  image: string;
-  muscleGroups: string[];
-  equipment: string;
-  difficulty: string;
-  duration: number;
-  caloriesBurned: number;
-  sets: number;
-  reps: string;
-  rating: number;
-  description: string;
-  instructions: string[];
-};
+import { FALLBACK_WORKOUTS, Workout } from "@/app/data/fallbackWorkouts";
+import { showToast } from "@/app/components/Toast";
 
 const API_URL = "https://api.abcz.workers.dev/api/fitlog";
 
@@ -89,26 +75,27 @@ export default function MyPlanPage() {
       try {
         setLoading(true);
 
-        const response =
-          await fetch(
-            API_URL
-          );
+        const response = await fetch(API_URL);
 
         if (!response.ok) {
-          throw new Error(
-            `Failed with status: ${response.status}`
-          );
+          setWorkouts(FALLBACK_WORKOUTS);
+          return;
         }
 
-        const data: Workout[] =
-          await response.json();
-
-        setWorkouts(data);
+        const text = await response.text();
+        try {
+          const data: Workout[] = JSON.parse(text);
+          if (Array.isArray(data) && data.length > 0) {
+            setWorkouts(data);
+          } else {
+            setWorkouts(FALLBACK_WORKOUTS);
+          }
+        } catch {
+          setWorkouts(FALLBACK_WORKOUTS);
+        }
       } catch (error) {
-        console.error(
-          "FETCH ERROR:",
-          error
-        );
+        console.error("FETCH ERROR:", error);
+        setWorkouts(FALLBACK_WORKOUTS);
       } finally {
         setLoading(false);
       }
@@ -234,7 +221,8 @@ export default function MyPlanPage() {
   ========================================================= */
 
   const removeFromPlan = (
-    id: number
+    id: number,
+    name?: string
   ) => {
     const updatedPlan =
       planIds.filter(
@@ -256,6 +244,13 @@ export default function MyPlanPage() {
         "fitlog-storage-update"
       )
     );
+
+    showToast(
+      name
+        ? `Removed "${name}" from today's plan`
+        : "Workout removed from plan",
+      "info"
+    );
   };
 
   /* =========================================================
@@ -263,7 +258,8 @@ export default function MyPlanPage() {
   ========================================================= */
 
   const removeFromSaved = (
-    id: number
+    id: number,
+    name?: string
   ) => {
     const updatedSaved =
       savedIds.filter(
@@ -285,6 +281,13 @@ export default function MyPlanPage() {
         "fitlog-storage-update"
       )
     );
+
+    showToast(
+      name
+        ? `Removed "${name}" from saved workouts`
+        : "Workout removed from saved",
+      "info"
+    );
   };
 
   /* =========================================================
@@ -292,7 +295,8 @@ export default function MyPlanPage() {
   ========================================================= */
 
   const markAsDone = (
-    id: number
+    id: number,
+    name?: string
   ) => {
     const updatedPlan =
       planIds.filter(
@@ -313,6 +317,13 @@ export default function MyPlanPage() {
       new Event(
         "fitlog-storage-update"
       )
+    );
+
+    showToast(
+      name
+        ? `Completed "${name}"! Great work.`
+        : "Workout marked as done!",
+      "success"
     );
   };
 
@@ -646,8 +657,8 @@ function WorkoutCard({
 }: {
   workout: Workout;
   activeTab: "plan" | "saved";
-  onRemove: (id: number) => void;
-  onDone: (id: number) => void;
+  onRemove: (id: number, name?: string) => void;
+  onDone: (id: number, name?: string) => void;
 }) {
   return (
     <article className="h-25.5 overflow-hidden rounded-[11px] border border-[#272c34] bg-[#15181e]">
@@ -727,7 +738,8 @@ function WorkoutCard({
                 type="button"
                 onClick={() =>
                   onDone(
-                    workout.id
+                    workout.id,
+                    workout.name
                   )
                 }
                 className="flex h-8 items-center rounded-full bg-[#c8ff00] px-4 text-[10px] font-bold text-black transition hover:bg-[#d5ff3d]"
@@ -745,7 +757,8 @@ function WorkoutCard({
             aria-label="Remove workout"
             onClick={() =>
               onRemove(
-                workout.id
+                workout.id,
+                workout.name
               )
             }
             className="flex h-7 w-7 items-center justify-center rounded-full text-[17px] leading-none text-[#737982] transition hover:text-white"

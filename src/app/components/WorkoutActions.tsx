@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { showToast } from "@/app/components/Toast";
 
 type Workout = {
     id: number;
@@ -64,6 +65,7 @@ const WorkoutActions = ({
             );
 
             setIsInPlan(false);
+            showToast(`Removed "${workout.name}" from today's plan`, "info");
 
             window.dispatchEvent(
                 new Event("fitlog-storage-update")
@@ -74,9 +76,7 @@ const WorkoutActions = ({
 
         /* Maximum 5 */
         if (planIds.length >= 5) {
-            alert(
-                "You can add up to five exercises to today's plan."
-            );
+            showToast("You can add up to five exercises to today's plan.", "warning");
 
             return;
         }
@@ -93,6 +93,7 @@ const WorkoutActions = ({
         );
 
         setIsInPlan(true);
+        showToast(`Added "${workout.name}" to today's plan!`, "success");
 
         window.dispatchEvent(
             new Event("fitlog-storage-update")
@@ -118,6 +119,7 @@ const WorkoutActions = ({
             );
 
             setIsSaved(false);
+            showToast(`Removed "${workout.name}" from saved workouts`, "info");
 
             window.dispatchEvent(
                 new Event("fitlog-storage-update")
@@ -138,6 +140,7 @@ const WorkoutActions = ({
         );
 
         setIsSaved(true);
+        showToast(`Saved "${workout.name}" for later!`, "success");
 
         window.dispatchEvent(
             new Event("fitlog-storage-update")
