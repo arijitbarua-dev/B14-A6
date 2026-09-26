@@ -19,7 +19,7 @@ const HeroSection = () => {
                     <p className="mt-4.75 max-w-127.5 text-[15px] leading-[1.55] text-[#969ca8]">
                         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it <br/> into today&apos;s plan, and watch the week&apos;s work add up.
                     </p>
-                    <Link href="/workouts" className="mt-6 inline-flex h-9 items-center justify-center rounded-[5px] bg-[#baff00] px-5.25 text-[11px] font-black tracking-[0.3px] text-[#080900] transition hover:bg-[#c8ff33] hover:-translate-y-px">
+                    <Link href="/" className="mt-6 inline-flex h-9 items-center justify-center rounded-[5px] bg-[#baff00] px-5.25 text-[11px] font-black tracking-[0.3px] text-[#080900] transition hover:bg-[#c8ff33] hover:-translate-y-px">
                         BROWSE WORKOUTS
                     </Link>
                 </div >

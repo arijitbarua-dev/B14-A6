@@ -16,9 +16,9 @@ const NavbarPage = () => {
 
     const links = (
         <>
-            <li><Link href="/workouts" className={`rounded-full px-4 py-1.5 text-[11px] font-medium transition ${linksPath === "/workouts" || linksPath === "/" ? "bg-[#17240f] text-[#b6ff00]" : "text-[#92959d] hover:text-white"}`}>Workouts</Link></li>
+            <li><Link href="/" className={`rounded-full px-4 py-1.5 text-[11px] font-medium transition ${linksPath === "/workouts" || linksPath === "/" ? "bg-[#17240f] text-[#b6ff00]" : "text-[#92959d] hover:text-white"}`}>Workouts</Link></li>
             <li><Link href="/my-plan" className={`rounded-full px-4 py-1.5 text-[11px] font-medium transition ${linksPath === "/my-plan" ? "bg-[#17240f] text-[#b6ff00]" : "text-[#92959d] hover:text-white"}`}>My Plan</Link></li>
-        </>
+        </> 
     );
 
     return (
